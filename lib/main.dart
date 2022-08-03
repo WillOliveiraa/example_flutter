@@ -1,3 +1,4 @@
+import 'package:example_flutter/widgets/singleton_page.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/animated_list.dart';
@@ -8,20 +9,32 @@ import 'widgets/animated_container.dart';
 import 'widgets/local_auth_invisible.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final themeStore = ThemeStore();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return AnimatedBuilder(
+      animation: themeStore,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          darkTheme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.dark,
+          ),
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          themeMode: themeStore.themeMode,
+          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
+      },
     );
   }
 }
@@ -106,6 +119,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 child: const Text('AnimatedContainer'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SingletonPage()),
+                  );
+                },
+                child: const Text('SingletonPage'),
               ),
             ],
           ),
