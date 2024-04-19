@@ -1,3 +1,4 @@
+import 'package:example_flutter/state_manage/pages/stores/worker_state.dart';
 import 'package:flutter/material.dart';
 
 import 'stores/worker_store.dart';
@@ -43,42 +44,74 @@ class _WorkerPageState extends State<WorkerPage> {
               ],
             ),
           ),
+          // ListenableBuilder
           Builder(
             builder: (_) {
               final state = store.state;
-              if (state.loading) {
+              if (state is LoadingWorkerState) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 );
-              }
-
-              if (state.workers.isEmpty) {
+              } else if (state is EmptyWorkerState) {
                 return const SizedBox();
-              }
-
-              if (state.messageError.isNotEmpty) {
+              } else if (state is ErrorWorkerState) {
                 return const Center(child: Text('Error!'));
-              }
-
-              return Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => const Padding(
-                    padding: EdgeInsetsDirectional.symmetric(vertical: 8),
-                    child: Divider(),
+              } else if (state is LoadedWorkerState) {
+                return Expanded(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    separatorBuilder: (context, index) => const Padding(
+                      padding: EdgeInsetsDirectional.symmetric(vertical: 8),
+                      child: Divider(),
+                    ),
+                    itemCount: state.workers.length,
+                    itemBuilder: (_, index) {
+                      final worker = state.workers[index];
+                      return ListTile(
+                        leading: const Icon(Icons.person),
+                        title: Text(
+                          '${worker.firstName} ${worker.lastName}',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              worker.email,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                            Text(worker.job),
+                          ],
+                        ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Alert'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('Cancel'),
+                                ),
+                              ],
+                              content: Text('Profession: ${worker.job}'),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                  itemCount: state.workers.length,
-                  itemBuilder: (_, index) {
-                    final worker = state.workers[index];
-                    return ListTile(
-                      leading: const Icon(Icons.person),
-                      title: Text('${worker.firstName} ${worker.lastName}'),
-                      subtitle: Text(worker.email),
-                    );
-                  },
-                ),
-              );
+                );
+              }
+              return const SizedBox();
             },
           ),
         ],

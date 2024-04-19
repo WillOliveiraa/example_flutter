@@ -5,24 +5,24 @@ import 'worker_state.dart';
 
 class WorkerStore extends ChangeNotifier {
   final service = WorkerService();
-  var state = WorkerState.empty();
+  WorkerState state = EmptyWorkerState();
 
   Future<void> initWorkers() async {
-    if (state.workers.isEmpty) {
-      state = state.copyWith(loading: true);
+    state = LoadingWorkerState();
+    notifyListeners();
+    try {
+      final response = await service.fetchAll();
+      state = LoadedWorkerState(response);
       notifyListeners();
-      try {
-        final response = await service.fetchAll();
-        state = state.copyWith(loading: false, workers: response);
-        notifyListeners();
-      } catch (e) {
-        state = state.copyWith(messageError: 'Failed to load worker');
-        notifyListeners();
-      }
+    } catch (e) {
+      state = ErrorWorkerState('Failed to load worker');
+      notifyListeners();
     }
   }
 
   void clear() {
-    state.workers.clear();
+    if (state is LoadedWorkerState) {
+      (state as LoadedWorkerState).workers.clear();
+    }
   }
 }

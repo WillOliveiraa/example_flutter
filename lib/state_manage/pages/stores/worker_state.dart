@@ -1,30 +1,21 @@
 // state pattern
 import '../../models/worker.dart';
 
-class WorkerState {
-  final List<Worker> workers;
-  final bool loading;
+// sealed
+abstract class WorkerState {}
+
+class EmptyWorkerState implements WorkerState {}
+
+class LoadingWorkerState implements WorkerState {}
+
+class ErrorWorkerState implements WorkerState {
   final String messageError;
 
-  WorkerState({
-    required this.workers,
-    required this.loading,
-    required this.messageError,
-  });
+  ErrorWorkerState(this.messageError);
+}
 
-  factory WorkerState.empty() {
-    return WorkerState(workers: [], loading: false, messageError: '');
-  }
+class LoadedWorkerState implements WorkerState {
+  final List<Worker> workers;
 
-  WorkerState copyWith({
-    List<Worker>? workers,
-    bool? loading,
-    String? messageError,
-  }) {
-    return WorkerState(
-      workers: workers ?? this.workers,
-      loading: loading ?? this.loading,
-      messageError: messageError ?? this.messageError,
-    );
-  }
+  LoadedWorkerState(this.workers);
 }
