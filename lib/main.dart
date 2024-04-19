@@ -1,12 +1,14 @@
-import 'package:example_flutter/widgets/singleton_page.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/animated_alignment.dart';
+import 'widgets/animated_container.dart';
+import 'widgets/animated_custom_size.dart';
 import 'widgets/animated_list.dart';
 import 'widgets/animated_padding.dart';
 import 'widgets/animated_positioned.dart';
-import 'widgets/animated_alignment.dart';
-import 'widgets/animated_container.dart';
+import 'widgets/animated_size.dart';
 import 'widgets/local_auth_invisible.dart';
+import 'widgets/singleton_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -128,6 +130,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 child: const Text('SingletonPage'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AnimatedSizeWidget()),
+                  );
+                },
+                child: const Text('AnimatedSize'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AnimatedCustomSizeWidget()),
+                  );
+                },
+                child: const Text('AnimatedCustomSize'),
               ),
             ],
           ),
