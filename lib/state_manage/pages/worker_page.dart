@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/worker.dart';
-import '../services/worker_service.dart';
+import 'stores/worker_store.dart';
 
 class WorkerPage extends StatefulWidget {
   const WorkerPage({super.key});
@@ -11,26 +10,12 @@ class WorkerPage extends StatefulWidget {
 }
 
 class _WorkerPageState extends State<WorkerPage> {
-  late WorkerService service;
-  final List<Worker> workers = [];
-  var loading = false;
-  String messageError = '';
+  final store = WorkerStore();
 
   @override
   void initState() {
     super.initState();
-    service = WorkerService();
-  }
-
-  Future<void> initWorkers() async {
-    if (workers.isEmpty) {
-      setState(() => loading = true);
-      final response = await service.fetchAll();
-      setState(() {
-        workers.addAll(response);
-        loading = false;
-      });
-    }
+    store.addListener(() => setState(() {}));
   }
 
   @override
@@ -47,20 +32,20 @@ class _WorkerPageState extends State<WorkerPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    initWorkers();
+                    store.initWorkers();
                   },
                   child: const Text('Fetch all'),
                 ),
                 ElevatedButton(
-                  onPressed: () => setState(() => workers.clear()),
+                  onPressed: () => store.clear(),
                   child: const Text('Clear'),
                 ),
               ],
             ),
           ),
           Builder(
-            builder: (context) {
-              if (loading) {
+            builder: (_) {
+              if (store.loading) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),
@@ -68,11 +53,11 @@ class _WorkerPageState extends State<WorkerPage> {
                 );
               }
 
-              if (workers.isEmpty) {
+              if (store.workers.isEmpty) {
                 return const SizedBox();
               }
 
-              if (workers.isEmpty) {
+              if (store.messageError.isNotEmpty) {
                 return const Center(child: Text('Error!'));
               }
 
@@ -82,9 +67,9 @@ class _WorkerPageState extends State<WorkerPage> {
                     padding: EdgeInsetsDirectional.symmetric(vertical: 8),
                     child: Divider(),
                   ),
-                  itemCount: workers.length,
+                  itemCount: store.workers.length,
                   itemBuilder: (_, index) {
-                    final worker = workers[index];
+                    final worker = store.workers[index];
                     return ListTile(
                       leading: const Icon(Icons.person),
                       title: Text('${worker.firstName} ${worker.lastName}'),
