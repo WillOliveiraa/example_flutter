@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/animated_alignment.dart';
-import 'widgets/animated_container.dart';
-import 'widgets/animated_custom_size.dart';
-import 'widgets/animated_list.dart';
-import 'widgets/animated_padding.dart';
-import 'widgets/animated_positioned.dart';
-import 'widgets/animated_size.dart';
-import 'widgets/local_auth_invisible.dart';
-import 'widgets/singleton_page.dart';
+import './widgets/animated_alignment.dart';
+import './widgets/animated_container.dart';
+import './widgets/animated_custom_size.dart';
+import './widgets/animated_list.dart';
+import './widgets/animated_padding.dart';
+import './widgets/animated_positioned.dart';
+import './widgets/animated_size.dart';
+import './widgets/local_auth_invisible.dart';
+import './widgets/singleton_page.dart';
+import 'state_manage/pages/worker_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -150,6 +151,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 child: const Text('AnimatedCustomSize'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WorkerPage()),
+                  );
+                },
+                child: const Text('WorkerPage'),
               ),
             ],
           ),
