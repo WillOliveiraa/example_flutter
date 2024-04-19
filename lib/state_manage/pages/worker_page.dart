@@ -45,7 +45,8 @@ class _WorkerPageState extends State<WorkerPage> {
           ),
           Builder(
             builder: (_) {
-              if (store.loading) {
+              final state = store.state;
+              if (state.loading) {
                 return const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),
@@ -53,11 +54,11 @@ class _WorkerPageState extends State<WorkerPage> {
                 );
               }
 
-              if (store.workers.isEmpty) {
+              if (state.workers.isEmpty) {
                 return const SizedBox();
               }
 
-              if (store.messageError.isNotEmpty) {
+              if (state.messageError.isNotEmpty) {
                 return const Center(child: Text('Error!'));
               }
 
@@ -67,9 +68,9 @@ class _WorkerPageState extends State<WorkerPage> {
                     padding: EdgeInsetsDirectional.symmetric(vertical: 8),
                     child: Divider(),
                   ),
-                  itemCount: store.workers.length,
+                  itemCount: state.workers.length,
                   itemBuilder: (_, index) {
-                    final worker = store.workers[index];
+                    final worker = state.workers[index];
                     return ListTile(
                       leading: const Icon(Icons.person),
                       title: Text('${worker.firstName} ${worker.lastName}'),

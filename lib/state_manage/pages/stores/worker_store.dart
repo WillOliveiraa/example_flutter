@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
 
-import '../../models/worker.dart';
 import '../../services/worker_service.dart';
+import 'worker_state.dart';
 
 class WorkerStore extends ChangeNotifier {
   final service = WorkerService();
-
-  final List<Worker> workers = [];
-  var loading = false;
-  String messageError = '';
+  var state = WorkerState.empty();
 
   Future<void> initWorkers() async {
-    if (workers.isEmpty) {
-      loading = true;
+    if (state.workers.isEmpty) {
+      state = state.copyWith(loading: true);
       notifyListeners();
       try {
         final response = await service.fetchAll();
-        workers.addAll(response);
-        loading = false;
+        state = state.copyWith(loading: false, workers: response);
         notifyListeners();
       } catch (e) {
-        messageError = 'Failed to load worker';
+        state = state.copyWith(messageError: 'Failed to load worker');
         notifyListeners();
       }
     }
   }
 
   void clear() {
-    workers.clear();
+    state.workers.clear();
   }
 }
