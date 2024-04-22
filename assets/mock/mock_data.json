@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "name": "ZTE",
+        "description": "Alligator mississippiensis",
+        "value": "€8941,67"
+    },
+    {
+        "id": 2,
+        "name": "Philips",
+        "description": "Arctogalidia trivirgata",
+        "value": "€6107,63"
+    },
+    {
+        "id": 3,
+        "name": "Siemens",
+        "description": "Microcebus murinus",
+        "value": "€8701,53"
+    },
+    {
+        "id": 4,
+        "name": "Motorola",
+        "description": "Cervus duvauceli",
+        "value": "€1209,55"
+    },
+    {
+        "id": 5,
+        "name": "LG",
+        "description": "Nucifraga columbiana",
+        "value": "€2929,65"
+    },
+    {
+        "id": 6,
+        "name": "Realme",
+        "description": "Semnopithecus entellus",
+        "value": "€3571,77"
+    },
+    {
+        "id": 7,
+        "name": "Benefon",
+        "description": "Lasiodora parahybana",
+        "value": "€8666,11"
+    },
+    {
+        "id": 8,
+        "name": "Micromax",
+        "description": "Papio cynocephalus",
+        "value": "€8905,96"
+    },
+    {
+        "id": 9,
+        "name": "Samsung",
+        "description": "Vulpes vulpes",
+        "value": "€5762,19"
+    },
+    {
+        "id": 10,
+        "name": "LG",
+        "description": "Columba palumbus",
+        "value": "€1034,32"
+    },
+    {
+        "id": 11,
+        "name": "Samsung",
+        "description": "Actophilornis africanus",
+        "value": "€6881,97"
+    },
+    {
+        "id": 12,
+        "name": "O2",
+        "description": "Milvus migrans",
+        "value": "€6558,37"
+    },
+    {
+        "id": 13,
+        "name": "Nokia",
+        "description": "Oryx gazella",
+        "value": "€6899,42"
+    },
+    {
+        "id": 14,
+        "name": "LG",
+        "description": "Paraxerus cepapi",
+        "value": "€3449,64"
+    },
+    {
+        "id": 15,
+        "name": "Motorola",
+        "description": "Gabianus pacificus",
+        "value": "€2265,99"
+    },
+    {
+        "id": 16,
+        "name": "Motorola",
+        "description": "Ursus arctos",
+        "value": "€7730,86"
+    },
+    {
+        "id": 17,
+        "name": "Huawei",
+        "description": "Sarkidornis melanotos",
+        "value": "€8585,39"
+    },
+    {
+        "id": 18,
+        "name": "Acer",
+        "description": "unavailable",
+        "value": "€7373,92"
+    },
+    {
+        "id": 19,
+        "name": "Prestigio",
+        "description": "Irania gutteralis",
+        "value": "€3474,71"
+    },
+    {
+        "id": 20,
+        "name": "Huawei",
+        "description": "Microcebus murinus",
+        "value": "€4997,23"
+    }
+]
